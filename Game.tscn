@@ -123,6 +123,7 @@ position = Vector2( 102, 25 )
 script = ExtResource( 20 )
 target_path = NodePath("../../Player")
 bullet_scene = ExtResource( 21 )
+fire_speed = 80
 
 [node name="Sprite" type="Sprite" parent="Turrets/Turret"]
 texture = ExtResource( 28 )
