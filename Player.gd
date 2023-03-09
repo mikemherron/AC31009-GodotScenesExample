@@ -1,14 +1,15 @@
 extends KinematicBody2D
 
-signal health_changed
-
 class_name Player
 
 onready var bullet_scene = preload("res://Bullet.tscn")
 
+# Health is now managed by the Health node which 
+# is a child of this node. We get a reference to it
+# here once this node is ready.
+onready var health : Health = $Health
+
 var speed : int = 30
-export var maxHealth : int = 10
-onready var health : int = maxHealth
 var movement : Vector2
 
 onready var animation : AnimatedSprite = $AnimatedSprite
@@ -33,6 +34,7 @@ func _process(delta):
 		var bullet : Bullet = bullet_scene.instance()
 		owner.add_child(bullet)
 		bullet.bullet_owner = self
+		bullet.speed*=2
 		bullet.direction = position.direction_to(get_global_mouse_position())
 		bullet.global_position = global_position
 
@@ -49,8 +51,9 @@ func _update_animation() -> void:
 		animation.play("idle")
 
 func hit() -> void:
-	health-=1
-	emit_signal("health_changed", health)
-	if health>0:
+	# Take damage through the new health node 
+	# instead
+	health.take_damage()
+	if health.health>0:
 		$HitSound.play()
 

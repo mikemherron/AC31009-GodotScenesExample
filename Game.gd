@@ -6,9 +6,9 @@ onready var _player : Node2D = $Player
 onready var _ui_controller : UIController = $UIController
 
 func _ready():
-	_ui_controller.set_health(_player.health)
+	_ui_controller.set_health(_player.health.health)
 	
-func _on_Player_health_changed(health : int):
+func _on_Health_health_changed(health):
 	if health <= 0:
 		_turrets.queue_free()
 		_player.queue_free()

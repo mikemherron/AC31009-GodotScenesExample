@@ -17,7 +17,7 @@ func hide_health() -> void:
 func game_over() -> void:
 	_game_over.show()
 
-func _on_Player_health_changed(health):
+func _on_Health_health_changed(health):
 	if health > 0 :
 		set_health(health)
 	else:
